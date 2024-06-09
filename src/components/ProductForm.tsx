@@ -7,7 +7,6 @@ import {
     Input,
     Textarea,
     Button,
-    FormHelperText,
 } from "@chakra-ui/react";
 
 type FormDataProps = {
