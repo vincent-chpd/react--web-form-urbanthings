@@ -9,10 +9,6 @@ h1 {
     font-weight: 800;
 }
 
-.form input:focus {
-    border: none;
-}
-
 .red {
     color: rgb(255, 0, 0) !important;
 }
@@ -53,10 +49,17 @@ h1 {
     gap: 4px;
 }
 
-.variantContainer {
+.variantWrapper .variantContainer:not(:first-of-type) {
     border-top: 2px dotted rgb(255, 255, 255);
+    padding-top: 32px;
+}
+
+.variantContainer {
     margin-top: 32px;
-    padding-top: 16px;
+}
+
+.variantContainer:last-of-type {
+    border-bottom: none;
 }
 
 .formTitle {
@@ -100,4 +103,14 @@ h1 {
     width: 100%;
     justify-content: start;
     gap: 16px;
+}
+
+.buttonContainer button {
+    background-color: #f5aa22;
+    color: white;
+}
+
+.buttonContainer a {
+    background-color: #f5aa22;
+    color: white;
 }

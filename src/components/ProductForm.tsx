@@ -40,11 +40,26 @@ const ProductForm = () => {
         status: "",
         description: "",
         priceRange: "",
-        variants: [],
+        variants: [
+            {
+                metadata: {
+                    field0: "1",
+                    field1: "2",
+                    productId: Date.now().toString(),
+                    operatorId: "12345",
+                },
+                price: 0,
+                currency: "GBP",
+                name: "",
+                description: "",
+                order: 0,
+                startDate: undefined,
+                endDate: undefined,
+            },
+        ],
     });
 
     const [jsonResponse, setJsonResponse] = useState<string>("");
-    const [errorMessage, setErrorMessage] = useState<string>("");
 
     const onFieldChange = (key: string, value: string) => {
         setFormData((previousData) => ({ ...previousData, [key]: value }));
@@ -63,7 +78,8 @@ const ProductForm = () => {
         }));
     };
 
-    const onAddVariant = () => {
+    const onAddVariant = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         const variantsCount = formData.variants.length;
 
         setFormData((previousData) => ({
@@ -87,14 +103,16 @@ const ProductForm = () => {
                 },
             ],
         }));
+        setTimeout(() => {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: "smooth",
+            });
+        }, 100);
     };
 
     const handleClick = () => {
         setJsonResponse(JSON.stringify(formData, null, 2));
-    };
-
-    const handleErrorMessage = () => {
-        setErrorMessage("This field is required");
     };
 
     return (
@@ -162,62 +180,73 @@ const ProductForm = () => {
                         }
                         value={formData.priceRange}
                     />
-                    <FormHelperText className="red">* Required</FormHelperText>
                 </FormControl>
 
-                {formData.variants.map((variant, index) => (
-                    <div
-                        key={`form-variant-${index}`}
-                        className="variantContainer"
-                    >
-                        <span className="formTitle">Variant {index + 1}</span>
-                        <div>
-                            <FormControl isRequired>
-                                <FormLabel>Price (GBP)</FormLabel>
-                                <Input
-                                    type="number"
-                                    placeholder="e.g. £2.00"
-                                    onChange={(e) =>
-                                        onVariantChange(
-                                            index,
-                                            "price",
-                                            e.target.value
-                                        )
-                                    }
-                                    value={variant.price}
-                                />
-                            </FormControl>
-                            <FormControl isRequired>
-                                <FormLabel>Name</FormLabel>
-                                <Input
-                                    placeholder="Enter variant name"
-                                    onChange={(e) =>
-                                        onVariantChange(
-                                            index,
-                                            "name",
-                                            e.target.value
-                                        )
-                                    }
-                                    value={variant.name}
-                                />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Description</FormLabel>
-                                <Input
-                                    placeholder="Enter a description (Optional)"
-                                    onChange={(e) =>
-                                        onVariantChange(
-                                            index,
-                                            "description",
-                                            e.target.value
-                                        )
-                                    }
-                                    value={variant.description}
-                                />
-                            </FormControl>
+                <div className="variantWrapper">
+                    {formData.variants.map((variant, index) => (
+                        <div
+                            key={`form-variant-${index}`}
+                            className="variantContainer"
+                        >
+                            <span className="formTitle">
+                                Product Variant {index + 1}
+                            </span>
+                            <div>
+                                <FormControl isRequired>
+                                    <FormLabel>Price (GBP)</FormLabel>
+                                    <Input
+                                        type="number"
+                                        placeholder="e.g. £2.00"
+                                        onChange={(e) =>
+                                            onVariantChange(
+                                                index,
+                                                "price",
+                                                e.target.value
+                                            )
+                                        }
+                                        value={variant.price}
+                                    />
+                                </FormControl>
+                                <FormControl isRequired>
+                                    <FormLabel>Name</FormLabel>
+                                    <Input
+                                        placeholder="Enter variant name"
+                                        onChange={(e) =>
+                                            onVariantChange(
+                                                index,
+                                                "name",
+                                                e.target.value
+                                            )
+                                        }
+                                        value={variant.name}
+                                    />
+                                </FormControl>
+                                <FormControl>
+                                    <FormLabel>Description</FormLabel>
+                                    <Input
+                                        placeholder="Enter a description (Optional)"
+                                        onChange={(e) =>
+                                            onVariantChange(
+                                                index,
+                                                "description",
+                                                e.target.value
+                                            )
+                                        }
+                                        value={variant.description}
+                                    />
+                                </FormControl>
+                                <FormControl>
+                                    <FormLabel>Start Date</FormLabel>
+                                    <Input size="md" type="date" />
+                                </FormControl>
+                                <FormControl>
+                                    <FormLabel>End Date</FormLabel>
+                                    <Input size="md" type="date" />
+                                </FormControl>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
                 <div>
                     <button onClick={onAddVariant} className="addVariantButton">
                         + Add a variant
@@ -225,15 +254,15 @@ const ProductForm = () => {
                 </div>
                 <div className="buttonContainer">
                     <Button onClick={handleClick}>Submit form </Button>
-                    <Button>
-                        <a
-                            href={`data:text/json;charset=utf-8,${encodeURIComponent(
-                                JSON.stringify(formData, null, 2)
-                            )}`}
-                            download="filename.json"
-                        >
-                            Download Json
-                        </a>
+                    <Button
+                        as="a"
+                        href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                            JSON.stringify(formData, null, 2)
+                        )}`}
+                        download="filename.json"
+                        className="jsonSubmitButton"
+                    >
+                        Download Json
                     </Button>
                 </div>
             </form>
