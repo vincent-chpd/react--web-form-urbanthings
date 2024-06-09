@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+
+* {
+    font-family: "Source Sans 3", sans-serif;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.form input:focus {
+    border: none;
+}
+
+.red {
+    color: rgb(255, 0, 0) !important;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    background: #109482;
+    border-radius: 16px;
+    width: 40% !important;
+    text-align: start;
+    color: gray;
+}
+
+.form img {
+    width: 200px;
+}
+
+.form input {
+    background-color: white;
+}
+.form select {
+    background-color: white;
+}
+.form textarea {
+    background-color: white;
+}
+
+.form label {
+    margin-top: 16px;
+    color: white;
+}
+
+.priceRange {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.variantContainer {
+    border-top: 2px dotted rgb(255, 255, 255);
+    margin-top: 32px;
+    padding-top: 16px;
+}
+
+.formTitle {
+    font-size: 18px;
+    color: white;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+    margin: 80px;
+}
+
+.response {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    text-wrap: wrap;
+    height: 100vh;
+}
+
+.response h1 {
+    color: #109482;
+}
+
+.addVariantButton {
+    margin: 8px 0 16px 0;
+    background-color: none;
+    text-decoration: underline;
+    font-weight: 600;
+    color: white;
+}
+
+.buttonContainer {
+    display: flex;
+    width: 100%;
+    justify-content: start;
+    gap: 16px;
+}
