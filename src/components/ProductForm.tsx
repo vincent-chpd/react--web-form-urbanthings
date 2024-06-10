@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./ProductForn.css";
+import "./ProductForm.css";
 import {
     FormControl,
     FormLabel,
