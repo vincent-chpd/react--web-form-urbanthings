@@ -1,14 +1,12 @@
-
 import ProductForm from "./components/ProductForm";
+import "./App.css";
 
 function App() {
-
-
-  return (
-    <div>
-      <ProductForm />
-    </div>
-  );
-};
+    return (
+        <div>
+            <ProductForm />
+        </div>
+    );
+}
 
 export default App;
