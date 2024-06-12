@@ -33,7 +33,7 @@ type FormDataProps = {
 };
 
 const ProductForm = () => {
-    const [formData, setFormData] = useState<FormDataProps>({
+    const initialProductData = {
         activationType: "",
         name: "",
         status: "",
@@ -56,9 +56,11 @@ const ProductForm = () => {
                 endDate: undefined,
             },
         ],
-    });
+    };
 
+    const [formData, setFormData] = useState<FormDataProps>(initialProductData);
     const [jsonResponse, setJsonResponse] = useState<string>("");
+    const [products, setProducts] = useState<FormDataProps[]>([]);
 
     const onFieldChange = (key: string, value: string) => {
         setFormData((previousData) => ({ ...previousData, [key]: value }));
@@ -110,13 +112,16 @@ const ProductForm = () => {
         }, 100);
     };
 
-    const handleClick = () => {
-        setJsonResponse(JSON.stringify(formData, null, 2));
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setProducts((prevProducts) => [...prevProducts, formData]);
+        setJsonResponse(JSON.stringify([...products, formData], null, 2));
+        setFormData(initialProductData);
     };
 
     return (
         <div className="container">
-            <form className="form">
+            <form onSubmit={handleSubmit} className="form">
                 <div className="formTitle">
                     <h1>Product Form</h1>
                     <img
@@ -132,6 +137,7 @@ const ProductForm = () => {
                         onChange={(e) =>
                             onFieldChange("activationType", e.target.value)
                         }
+                        value={formData.activationType}
                     >
                         <option>Manual</option>
                         <option>On Purchase</option>
@@ -252,7 +258,7 @@ const ProductForm = () => {
                     </button>
                 </div>
                 <div className="buttonContainer">
-                    <Button onClick={handleClick}>Submit form </Button>
+                    <Button type="submit">Submit form </Button>
                     <Button
                         as="a"
                         href={`data:text/json;charset=utf-8,${encodeURIComponent(
