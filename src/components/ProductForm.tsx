@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./ProductForm.css";
+import { FormData } from "../types/formData.types";
 import {
     FormControl,
     FormLabel,
@@ -8,29 +9,6 @@ import {
     Textarea,
     Button,
 } from "@chakra-ui/react";
-
-type FormDataProps = {
-    activationType: string;
-    name: string;
-    status: string;
-    description: string;
-    priceRange: string;
-    variants: {
-        metadata: {
-            field0: string;
-            field1: string;
-            productId: string;
-            operatorId: string;
-        };
-        price: number;
-        currency: string;
-        name: string;
-        description?: string;
-        order: number;
-        startDate?: Date;
-        endDate?: Date;
-    }[];
-};
 
 const ProductForm = () => {
     const initialProductData = {
@@ -58,9 +36,9 @@ const ProductForm = () => {
         ],
     };
 
-    const [formData, setFormData] = useState<FormDataProps>(initialProductData);
+    const [formData, setFormData] = useState<FormData>(initialProductData);
     const [jsonResponse, setJsonResponse] = useState<string>("");
-    const [products, setProducts] = useState<FormDataProps[]>([]);
+    const [products, setProducts] = useState<FormData[]>([]);
 
     const onFieldChange = (key: string, value: string) => {
         setFormData((previousData) => ({ ...previousData, [key]: value }));
